@@ -8,6 +8,6 @@ views/index.html is a basic webpage to test the functionality of the functions i
 
 data.json stores the posts as json which is parsed into a js object by getAllPosts() in HttpWrapper.js
 
-     Each element in data.json is an array of posts in a subject, with the name of the subject as the key
+   Each element in data.json is an array of posts in a subject, with the name of the subject as the key
 	
-     Each post should be a stringified js object, but technically can be anything; HttpWrapper.js doesn't process it.
+   Each post should be a stringified js object, but technically can be anything; HttpWrapper.js doesn't process it.
