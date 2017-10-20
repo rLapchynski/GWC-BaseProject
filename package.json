@@ -1,0 +1,13 @@
+{
+  "name": "test_app",
+  "repository": {},
+  "license": "MIT",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "fs": "^0.0.2",
+    "body-parser":"latest",
+    "express": "latest"
+  }
+}

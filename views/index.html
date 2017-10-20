@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TEST PAGE</title>
+    <script src="/scripts/HttpWrapper.js"></script>
+    <script>
+      var allPosts;
+      
+      getAllPosts(function(posts){
+        //Assign allPosts, so it can be used globally
+        allPosts = posts;
+        
+        console.log(posts);
+        
+        //Get the subjects as an array (subjects are the keys of the object posts)
+        subjects = Object.keys(posts);
+        
+        //Add each subject to the subject selector
+        selector = document.getElementById('subjectSelector')
+        for(index in subjects){
+          option = document.createElement("option");
+          option.text = subjects[index];
+          selector.add(option);
+        }
+        
+        updatePostsTable(subjects[0])
+        
+      });
+      
+      function updatePostsTable(subject){        
+        postsTable = document.getElementById('postsTable');
+        posts = allPosts[subject]
+        
+        //Clear the table
+        while(postsTable.rows.length > 0) {
+          postsTable.deleteRow(0);
+        }
+        
+        //Add each post in posts to postsTable as a new <tr> at the top of postsTable
+        for(index in posts){
+          row = postsTable.insertRow(0)
+          row.insertCell(0).innerHTML = posts[index].title
+          row.insertCell(1).innerHTML = posts[index].content
+        }
+      }
+      
+      function onSelectorChange(){
+        //When the selector changes value, update the table
+        updatePostsTable(document.getElementById('subjectSelector').value)
+      }
+      
+      function onBtnClick(){
+        //Call addPost() from /script.js and reload the page
+        addPost(document.getElementById('subjectBox').value, {
+          "title": document.getElementById('titleBox').value,
+          "content": document.getElementById('contentBox').value
+        });
+        location.reload()
+      }
+      
+    </script>
+    
+  </head>
+  <body>
+    
+    <h1>Example Page</h1>
+    
+    <div style="border-style:solid; width:700px">
+      <!--TEXTBOXES FOR ENTERING A NEW POST-->
+      <input id="subjectBox" type="textbox" value="Subject"/>
+      <input id="titleBox" type="textbox" value="Post Title"/><br/><br/>
+      <textarea id="contentBox" type="textbox" rows="4" cols="50">Post Content</textarea><br/>
+      <input id="button" onclick="onBtnClick()" type="button" value="Submit"/>
+    </div>
+    
+    <div style="border-style:solid;">
+      <select id="subjectSelector" onchange="onSelectorChange()">
+        <!--DROPDOWN FOR SELECTING SUBJECT
+            POPULATED BY JAVASCRIPT-->
+      </select>
+      <table id="postsTable" border="1">
+        <!--TABLE FOR ALL OF THE POSTS IN A SUBJECT
+            POPULATED BY JAVASCRIPT-->
+      </table>
+    </div>
+    
+    
+  </body>
+</html>
